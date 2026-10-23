@@ -3,7 +3,7 @@ title: A fractal explorer with a Rust tile server
 description: Mandelbrot, Julia, Burning Ship and Tricorn fractals rendered on demand as map tiles by a small Rust service.
 pubDate: 2026-10-24
 tags: [webapp, fractals, rust, docker]
-draft: true
+draft: false
 ---
 
 [Fractal Explorer](https://fractal.zawaung.site) lets you pan and zoom

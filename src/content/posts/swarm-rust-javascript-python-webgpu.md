@@ -3,7 +3,7 @@ title: Swarm, racing Rust, JavaScript, Python and WebGPU
 description: The same three particle simulations written in four ways and run side by side in the browser.
 pubDate: 2026-10-24
 tags: [webapp, rust, webassembly, webgpu, benchmark]
-draft: true
+draft: false
 ---
 
 [Swarm](https://swarm.zawaung.site) runs three particle simulations, each

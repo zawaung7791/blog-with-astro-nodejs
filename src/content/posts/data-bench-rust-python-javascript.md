@@ -3,7 +3,7 @@ title: Data bench, the same analytics job in six engines
 description: A website that runs one data-analytics workload in Rust, Node.js, pandas, Polars, pure Python and the browser, and compares the speed.
 pubDate: 2026-10-24
 tags: [webapp, benchmark, rust, python, nodejs, docker]
-draft: true
+draft: false
 ---
 
 [Data bench](https://bench.zawaung.site) asks how much the language matters

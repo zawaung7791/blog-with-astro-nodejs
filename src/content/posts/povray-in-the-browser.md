@@ -3,7 +3,7 @@ title: POV-Ray in the browser, without letting strangers run code
 description: A web front end for the POV-Ray ray tracer, and the sandboxing needed to make that safe to put online.
 pubDate: 2026-10-24
 tags: [webapp, povray, python, docker, security]
-draft: true
+draft: false
 ---
 
 [POV-Ray Online](https://povray.render.zawaung.site) is a page where you paste

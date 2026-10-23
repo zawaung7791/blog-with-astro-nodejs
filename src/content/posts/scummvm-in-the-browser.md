@@ -3,7 +3,7 @@ title: Classic adventure games in the browser with ScummVM and WebAssembly
 description: Compiling ScummVM to WebAssembly so point-and-click adventures run entirely in the visitor's browser.
 pubDate: 2026-10-24
 tags: [webapp, scummvm, webassembly, docker, nginx]
-draft: true
+draft: false
 ---
 
 [ScummVM](https://www.scummvm.org) is a free engine that runs classic

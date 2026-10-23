@@ -3,7 +3,7 @@ title: A chess opponent that plays like a person
 description: Chess against Stockfish or Maia with adjustable strength, move-by-move ratings and post-game analysis, running in Docker.
 pubDate: 2026-10-24
 tags: [webapp, chess, python, docker]
-draft: true
+draft: false
 ---
 
 [Chess vs Computer](https://chess.zawaung.site) is a chess site where you play

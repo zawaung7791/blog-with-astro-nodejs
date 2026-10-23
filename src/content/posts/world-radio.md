@@ -3,7 +3,7 @@ title: World Radio, a map-based radio player
 description: Search and play live radio stations from around the world, with no framework, no build step and a small hardened back end.
 pubDate: 2026-10-24
 tags: [webapp, radio, nodejs, docker, security]
-draft: true
+draft: false
 ---
 
 [World Radio](https://worldradio.zawaung.site) lets you search live radio

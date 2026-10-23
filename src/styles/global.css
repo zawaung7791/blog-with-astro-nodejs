@@ -78,3 +78,8 @@ th, td { border: 1px solid var(--border); padding: .4rem .6rem; text-align: left
 .actions button { font: inherit; padding: .3rem .8rem; border: 1px solid var(--border); border-radius: 6px; background: var(--code-bg); color: var(--fg); cursor: pointer; }
 .actions button.danger { color: #c0392b; }
 .notice { background: var(--code-bg); padding: .5rem .8rem; border-radius: 6px; }
+/* Embedded content (YouTube, CodePen, ...): never wider than the page. */
+article iframe { max-width: 100%; border: 0; }
+article iframe[src*="youtube"], article iframe[src*="youtu.be"], article iframe[src*="vimeo"] {
+  width: 100%; height: auto; aspect-ratio: 16 / 9;
+}

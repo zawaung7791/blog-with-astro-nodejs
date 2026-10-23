@@ -33,6 +33,16 @@ export function greet(name) {
 
 ![Sample illustration](../../assets/sample.svg)
 
+## A video
+
+An embedded YouTube video, pasted as plain HTML. The `nocookie` domain avoids
+tracking cookies until you press play.
+
+<iframe width="560" height="315"
+  src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw"
+  title="Me at the zoo (the first YouTube video)"
+  loading="lazy" allowfullscreen></iframe>
+
 ## A table
 
 | Feature  | Stage |

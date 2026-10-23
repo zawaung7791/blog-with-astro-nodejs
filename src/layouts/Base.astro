@@ -1,13 +1,14 @@
 ---
 import '../styles/global.css';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 interface Props {
   title: string;
   description?: string;
 }
-const { title, description = 'A personal blog.' } = Astro.props;
+const { title, description = SITE_DESCRIPTION } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const fullTitle = title === 'Blog' ? title : `${title} · Blog`;
+const fullTitle = title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -19,12 +20,12 @@ const fullTitle = title === 'Blog' ? title : `${title} · Blog`;
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <slot name="head" />
-    <link rel="alternate" type="application/rss+xml" title="Blog" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/rss.xml" />
   </head>
   <body>
     <header class="site">
       <div class="wrap">
-        <a class="brand" href="/">Blog</a>
+        <a class="brand" href="/">{SITE_TITLE}</a>
         <nav>
           <a href="/">Posts</a>
           <a href="/search/">Search</a>

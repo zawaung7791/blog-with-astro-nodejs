@@ -143,6 +143,7 @@ astro.config.mjs            Astro settings; loads Keystatic only in dev
 keystatic.config.ts         editor schema (dev only)
 src/content.config.ts       defines the "posts" collection and its fields
 src/content/posts/          the Markdown posts
+src/consts.ts               site title and description (one place)
 src/layouts/Base.astro      page shell: head, header/nav, footer
 src/components/             PostList.astro, Comments.astro
 src/pages/                  routes: index, posts/[id], tags/[tag], about, contact, search, rss.xml
@@ -570,16 +571,74 @@ Posts are in git, so only the database needs restoring.
 
 | To change | Edit |
 |---|---|
-| Site title, nav, footer | `src/layouts/Base.astro` (and the title in `src/pages/rss.xml.js`) |
+| Site title and description | `src/consts.ts` (one place; used by the header, tab title, home page and RSS) |
+| Nav links, footer | `src/layouts/Base.astro` |
 | Look and feel | `src/styles/global.css` |
 | About page text | `src/pages/about.astro` |
-| Footer "Source" link | `src/layouts/Base.astro` (currently a placeholder GitHub link) |
+| Footer "Source" link | `src/layouts/Base.astro` (points at the GitHub repo) |
 | Comment/contact rate limits | `max` and `windowSeconds` in `src/pages/api/comments.ts` and `contact.ts` |
 | Field length limits | the `text(...)` calls in the same two files |
 | Post fields | `src/content.config.ts` **and** `keystatic.config.ts` (keep both in step) |
 | nginx behaviour | `deploy/nginx/blog.zawaung.site.conf`, then copy to `/etc/nginx/sites-available/` and reload |
 
 After editing code or content, run `scripts/deploy.sh`.
+
+### 7.7 Step by step: change the site title or the About page
+
+You can do this on the server in a terminal, or on your own computer with a
+clone of the repo. Use any text editor (`nano` is the simplest in a terminal).
+
+**Change the blog title** (done once as an example: it is now `Zaw Aung's Blog`)
+
+1. Open the constants file:
+   ```sh
+   cd /home/zawaung/blog
+   nano src/consts.ts
+   ```
+2. Change the text between the quotes on the `SITE_TITLE` line. If the new title
+   contains an apostrophe, keep the double quotes around it, as in
+   `"Zaw Aung's Blog"`. `SITE_DESCRIPTION` on the next line is the short
+   description used by search engines and the RSS feed.
+3. Save (in `nano`: Ctrl+O, Enter, then Ctrl+X).
+
+**Change the About page**
+
+1. Open the page:
+   ```sh
+   nano src/pages/about.astro
+   ```
+2. The text is plain HTML between the `<Base ...>` tags. Edit the words inside
+   the `<p>` tags, and add more paragraphs by adding more `<p>...</p>` lines:
+   ```astro
+   <Base title="About">
+     <h1>About</h1>
+     <p>Hi, I'm Zaw Aung. This is where I write about ...</p>
+     <p>Another paragraph.</p>
+   </Base>
+   ```
+   Do not change the lines starting with `---` at the top of the file.
+3. Save.
+
+**Preview, then publish** (the same for any edit)
+
+1. Optional preview: `npm run dev`, then open <http://localhost:4321>. Stop it
+   with Ctrl+C. If it complains about missing packages, run `npm install` first.
+2. Save your change in git and send it to GitHub:
+   ```sh
+   git add -A
+   git commit -m "Update title and about page"
+   git push
+   ```
+3. Make it live on the server:
+   ```sh
+   scripts/deploy.sh
+   ```
+   This takes about a minute. Then reload <https://blog.zawaung.site> (a hard
+   refresh, Ctrl+Shift+R, avoids a stale cached copy).
+
+If the build fails, the error message names the file and line. The most common
+cause is a missing quote or an unclosed `<p>` tag; undo with
+`git checkout -- <file>` and try again.
 
 ---
 

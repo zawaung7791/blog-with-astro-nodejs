@@ -2,12 +2,13 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
+import { SITE_TITLE } from '../consts';
 
 const posts = (await getCollection('posts', (p) => !p.data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
-<Base title="Blog">
+<Base title={SITE_TITLE}>
   <h1>Posts</h1>
   <PostList posts={posts} />
 </Base>

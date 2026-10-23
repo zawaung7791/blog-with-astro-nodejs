@@ -3,7 +3,7 @@ title: Building this blog with Astro, Node.js, nginx and Docker
 description: Why I built a minimal, hands-on blog instead of using WordPress, and how the pieces fit together.
 pubDate: 2026-10-23
 tags: [blog, minimal, astro, nodejs, nginx, docker]
-draft: true
+draft: false
 ---
 
 I wanted a blog I fully understand, without the overhead of WordPress. This is

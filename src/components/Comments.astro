@@ -1,0 +1,86 @@
+---
+interface Props {
+  postId: string;
+}
+const { postId } = Astro.props;
+---
+<section id="comments" class="comments" data-post={postId}>
+  <h2>Comments</h2>
+  <ul id="comment-list" class="comment-list" aria-live="polite"></ul>
+  <p id="comment-empty" class="meta" hidden>No comments yet.</p>
+
+  <h3>Leave a comment</h3>
+  <p class="meta">Comments are held for moderation before they appear.</p>
+  <form id="comment-form" class="form" novalidate>
+    <label>Name <input name="author" required maxlength="80" autocomplete="name" /></label>
+    <label>Email <span class="meta">(optional, never shown)</span>
+      <input name="email" type="email" maxlength="254" autocomplete="email" />
+    </label>
+    <label>Comment <textarea name="body" required rows="5" maxlength="2000"></textarea></label>
+    <div class="hp" aria-hidden="true">
+      <label>Leave this empty <input name="website" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <button type="submit">Post comment</button>
+    <p id="comment-status" class="form-status" role="status"></p>
+  </form>
+</section>
+
+<script>
+  const root = document.getElementById('comments') as HTMLElement;
+  const postId = root.dataset.post!;
+  const list = document.getElementById('comment-list') as HTMLUListElement;
+  const empty = document.getElementById('comment-empty') as HTMLElement;
+  const form = document.getElementById('comment-form') as HTMLFormElement;
+  const status = document.getElementById('comment-status') as HTMLElement;
+  const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long' });
+
+  async function load() {
+    try {
+      const res = await fetch(`/api/comments?post=${encodeURIComponent(postId)}`);
+      if (!res.ok) throw new Error();
+      const { comments } = await res.json();
+      list.replaceChildren();
+      for (const c of comments) {
+        const li = document.createElement('li');
+        const head = document.createElement('div');
+        head.className = 'meta';
+        // textContent only: comment text is never interpreted as HTML.
+        head.textContent = `${c.author} · ${fmt.format(new Date(c.created_at))}`;
+        const body = document.createElement('p');
+        body.className = 'comment-body';
+        body.textContent = c.body;
+        li.append(head, body);
+        list.append(li);
+      }
+      empty.hidden = comments.length > 0;
+    } catch {
+      empty.textContent = 'Comments could not be loaded.';
+      empty.hidden = false;
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const data = Object.fromEntries(new FormData(form));
+    status.textContent = 'Sending…';
+    try {
+      const res = await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ ...data, post: postId }),
+      });
+      const out = await res.json().catch(() => ({}));
+      if (res.ok) {
+        form.reset();
+        status.textContent = 'Thanks! Your comment is awaiting moderation.';
+      } else {
+        status.textContent = out.error ?? 'Something went wrong.';
+      }
+    } catch {
+      status.textContent = 'Network error. Please try again.';
+    }
+  });
+
+  load();
+</script>

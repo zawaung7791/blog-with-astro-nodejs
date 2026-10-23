@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import Comments from '../../components/Comments.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', (p) => !p.data.draft);
@@ -25,4 +26,5 @@ const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC
     )}
     <Content />
   </article>
+  <Comments postId={post.id} />
 </Base>

@@ -122,8 +122,9 @@ sudo deploy/set-admin-ip.sh <new-ip> [<another-ip-or-cidr> ...]
 
 It validates the addresses, rewrites `/etc/nginx/snippets/blog-admin-allow.conf`,
 tests the config and reloads nginx (restoring the old list if the test fails).
-You can allow several addresses or a CIDR range at once. Keep
-`deploy/nginx/blog-admin-allow.conf` in the repo in step if you want it recorded.
+You can allow several addresses or a CIDR range at once. The live list is kept
+only on the server; `deploy/nginx/blog-admin-allow.conf` in the repo holds a
+placeholder address so your real IP is never published.
 
 ### Docker image
 

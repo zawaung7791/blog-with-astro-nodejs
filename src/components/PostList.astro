@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+}
+const { posts } = Astro.props;
+const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC' });
+---
+<ul class="post-list">
+  {posts.map((post) => (
+    <li>
+      <h2><a href={`/posts/${post.id}/`}>{post.data.title}</a></h2>
+      <div class="meta"><time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time></div>
+      <p>{post.data.description}</p>
+    </li>
+  ))}
+</ul>

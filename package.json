@@ -21,7 +21,17 @@
     "better-sqlite3": "^13.0.3"
   },
   "devDependencies": {
+    "@astrojs/react": "^7.1.1",
+    "@keystatic/astro": "^6.0.0",
+    "@keystatic/core": "^0.6.9",
     "@types/better-sqlite3": "^9.6.0",
-    "pagefind": "^1.5.2"
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "pagefind": "^1.5.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "allowScripts": {
+    "better-sqlite3@13.0.3": true
   }
 }

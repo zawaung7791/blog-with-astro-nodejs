@@ -1,0 +1,26 @@
+services:
+  blog:
+    build:
+      context: .
+      target: runtime
+    image: blog:latest
+    container_name: blog
+    restart: unless-stopped
+    # Published on localhost only; nginx proxies /api/ and /admin to it.
+    # The app trusts X-Real-IP from nginx, so never publish on 0.0.0.0.
+    ports:
+      - "127.0.0.1:4321:4321"
+    environment:
+      SITE_ORIGIN: https://blog.zawaung.site
+    user: "node"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - blog-data:/data
+
+volumes:
+  blog-data:

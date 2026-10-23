@@ -1,0 +1,69 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getDb } from '../../lib/db';
+
+// Server-rendered on every request. Access control is done by nginx
+// (basic auth + IP allowlist), which is the only thing that proxies /admin.
+export const prerender = false;
+
+interface Comment { id: number; post_id: string; author: string; email: string | null; body: string; status: string; created_at: string }
+interface Message { id: number; name: string; email: string; body: string; created_at: string }
+
+const db = getDb();
+const pending = db.prepare(`SELECT id, post_id, author, email, body, status, created_at FROM comments WHERE status = 'pending' ORDER BY created_at`).all() as Comment[];
+const reviewed = db.prepare(`SELECT id, post_id, author, email, body, status, created_at FROM comments WHERE status != 'pending' ORDER BY created_at DESC LIMIT 50`).all() as Comment[];
+const messages = db.prepare(`SELECT id, name, email, body, created_at FROM messages ORDER BY created_at DESC LIMIT 100`).all() as Message[];
+const done = Astro.url.searchParams.get('done');
+---
+<Base title="Admin" description="Moderation">
+  <meta slot="head" name="robots" content="noindex" />
+  <h1>Moderation</h1>
+  {done && <p class="notice" role="status">Done: {done}.</p>}
+
+  <h2>Pending comments ({pending.length})</h2>
+  {pending.length === 0 && <p class="meta">Nothing waiting.</p>}
+  {pending.map((c) => (
+    <div class="card">
+      <div class="meta">
+        {c.author}{c.email && <> &lt;{c.email}&gt;</>} on <a href={`/posts/${c.post_id}/`}>{c.post_id}</a> · {c.created_at}
+      </div>
+      <p class="comment-body">{c.body}</p>
+      <form method="post" action="/admin/action" class="actions">
+        <input type="hidden" name="id" value={c.id} />
+        <button name="action" value="approve">Approve</button>
+        <button name="action" value="reject">Reject</button>
+        <button name="action" value="delete-comment" class="danger">Delete</button>
+      </form>
+    </div>
+  ))}
+
+  <h2>Reviewed comments (latest 50)</h2>
+  {reviewed.length === 0 && <p class="meta">None yet.</p>}
+  {reviewed.map((c) => (
+    <div class="card">
+      <div class="meta">
+        <strong>{c.status}</strong> · {c.author} on <a href={`/posts/${c.post_id}/`}>{c.post_id}</a> · {c.created_at}
+      </div>
+      <p class="comment-body">{c.body}</p>
+      <form method="post" action="/admin/action" class="actions">
+        <input type="hidden" name="id" value={c.id} />
+        {c.status !== 'approved' && <button name="action" value="approve">Approve</button>}
+        {c.status !== 'rejected' && <button name="action" value="reject">Reject</button>}
+        <button name="action" value="delete-comment" class="danger">Delete</button>
+      </form>
+    </div>
+  ))}
+
+  <h2>Contact messages ({messages.length})</h2>
+  {messages.length === 0 && <p class="meta">No messages.</p>}
+  {messages.map((m) => (
+    <div class="card">
+      <div class="meta">{m.name} &lt;<a href={`mailto:${m.email}`}>{m.email}</a>&gt; · {m.created_at}</div>
+      <p class="comment-body">{m.body}</p>
+      <form method="post" action="/admin/action" class="actions">
+        <input type="hidden" name="id" value={m.id} />
+        <button name="action" value="delete-message" class="danger">Delete</button>
+      </form>
+    </div>
+  ))}
+</Base>

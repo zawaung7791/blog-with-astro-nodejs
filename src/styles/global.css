@@ -72,3 +72,9 @@ th, td { border: 1px solid var(--border); padding: .4rem .6rem; text-align: left
 .comment-list { list-style: none; padding: 0; }
 .comment-list li { margin-bottom: 1.25rem; }
 .comment-body { margin: .15rem 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.card { border: 1px solid var(--border); border-radius: 6px; padding: .75rem 1rem; margin-bottom: 1rem; }
+.card .comment-body { margin: .4rem 0; }
+.actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.actions button { font: inherit; padding: .3rem .8rem; border: 1px solid var(--border); border-radius: 6px; background: var(--code-bg); color: var(--fg); cursor: pointer; }
+.actions button.danger { color: #c0392b; }
+.notice { background: var(--code-bg); padding: .5rem .8rem; border-radius: 6px; }

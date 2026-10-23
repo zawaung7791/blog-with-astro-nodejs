@@ -464,6 +464,48 @@ git add -A && git commit -m "New post: my-post" && git push
 cd /home/zawaung/blog && git pull && scripts/deploy.sh
 ```
 
+**Embedding videos and other content (YouTube, CodePen, ...)**
+
+Markdown allows raw HTML, so paste the provider's embed code into the post as
+it is, with a blank line before and after it. The sample post
+(`src/content/posts/hello-world.md`) has a working YouTube example.
+
+YouTube: Share → Embed, then keep the `youtube-nocookie.com` form of the address
+(no tracking cookies until the viewer presses play):
+
+```html
+<iframe width="560" height="315"
+  src="https://www.youtube-nocookie.com/embed/VIDEO_ID"
+  title="Describe the video" loading="lazy" allowfullscreen></iframe>
+```
+
+CodePen: use the pen's Embed menu and choose the **iframe** form:
+
+```html
+<iframe height="300" style="width: 100%;" scrolling="no" title="My pen"
+  src="https://codepen.io/USER/embed/PEN_ID?default-tab=result"
+  loading="lazy" allowfullscreen></iframe>
+```
+
+Things to know:
+
+- **Use the iframe form, never a `<script>` embed.** A script in a post runs with
+  the same trust as the rest of the site.
+- **Sizing.** `global.css` keeps every iframe within the page width, and makes
+  YouTube and Vimeo embeds full width in a 16:9 shape, so they fit phones.
+  Other embeds (CodePen etc.) keep the height in their own code.
+- **Write these posts by hand.** The Keystatic editor may not preserve raw HTML
+  in the post body (not tested), so edit posts that contain embeds in a text
+  editor rather than re-saving them from Keystatic.
+- **Search** indexes the text around an embed, not the embedded video or pen.
+- **Privacy.** Visitors' browsers contact the provider when the page loads.
+  `loading="lazy"` delays this until the embed scrolls into view, and the
+  `nocookie` domain reduces tracking, but neither removes it.
+- **Security headers.** nginx currently sets no Content-Security-Policy, so
+  embeds work. If you add one later, allow the provider in `frame-src`
+  (for example `https://www.youtube-nocookie.com https://codepen.io`).
+- **Preview before publishing** with `npm run dev`, as with any post.
+
 Publishing is a rebuild: new posts, tags, RSS entries, sitemap and the search
 index all update together, because `scripts/deploy.sh` rebuilds all of them.
 

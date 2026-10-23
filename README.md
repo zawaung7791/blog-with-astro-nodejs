@@ -18,6 +18,9 @@ browser ──► nginx ──┬─ /            static files from dist/client/
                     └─ /admin/      ─► container (basic auth + IP allowlist)
 ```
 
+For the reasoning behind each decision, how the code works, and day-to-day
+operation, see [docs/GUIDE.md](docs/GUIDE.md).
+
 ## Development
 
 Requires Node 22.23.4 or newer.

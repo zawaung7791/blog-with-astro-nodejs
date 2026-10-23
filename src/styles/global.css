@@ -5,7 +5,7 @@
   --accent: #2c5cc5;
   --border: #dde1e8;
   --code-bg: #f1f3f7;
-  --measure: 42rem;
+  --measure: 56rem;
 }
 @media (prefers-color-scheme: dark) {
   :root {

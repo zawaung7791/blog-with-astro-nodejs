@@ -16,6 +16,14 @@ npm run build    # outputs dist/client (static site) and dist/server (API)
 
 Requires Node 22.23.4 or newer.
 
+## Search
+
+[Pagefind](https://pagefind.app) indexes the built site: `npm run build` runs
+`pagefind --site dist/client` after `astro build`, writing the index to
+`dist/client/pagefind/`. Only post pages are indexed (the `data-pagefind-body`
+attribute in `src/pages/posts/[id].astro`). The search page is `/search/`. Search
+isn't available under `npm run dev`; build first and serve `dist/client`.
+
 ## Writing a post
 
 Add `src/content/posts/my-post.md`:

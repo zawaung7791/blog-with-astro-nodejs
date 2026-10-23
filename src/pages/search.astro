@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Search" description="Search all posts.">
+  <h1>Search</h1>
+  <div id="search"></div>
+  <noscript><p>Search needs JavaScript.</p></noscript>
+  <p id="search-dev" hidden class="meta">
+    The search index is only built by <code>npm run build</code>; it isn't available in <code>npm run dev</code>.
+  </p>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <script is:inline src="/pagefind/pagefind-ui.js" onerror="document.getElementById('search-dev').hidden = false"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.PagefindUI) {
+        new PagefindUI({ element: '#search', showSubResults: true, autofocus: true });
+      }
+    });
+  </script>
+</Base>

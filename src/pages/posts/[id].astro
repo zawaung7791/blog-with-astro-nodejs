@@ -12,7 +12,7 @@ const { Content } = await render(post);
 const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC' });
 ---
 <Base title={post.data.title} description={post.data.description}>
-  <article>
+  <article data-pagefind-body>
     <h1>{post.data.title}</h1>
     <div class="meta">
       <time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time>

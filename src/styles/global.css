@@ -46,3 +46,11 @@ pre { padding: 1rem; border-radius: 6px; overflow-x: auto; }
 pre code { background: none; padding: 0; }
 table { border-collapse: collapse; width: 100%; }
 th, td { border: 1px solid var(--border); padding: .4rem .6rem; text-align: left; }
+#search {
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--fg);
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: var(--border);
+  --pagefind-ui-tag: var(--code-bg);
+  --pagefind-ui-font: inherit;
+}

@@ -432,6 +432,26 @@ production.
 4. Save. Keystatic writes `src/content/posts/<slug>.md`. Check the result at
    <http://localhost:4321/>.
 
+**Using Keystatic on the server (over SSH)**
+
+The production container already uses port 4321 on the server, so a dev server
+started there lands on the next free port (usually **4322**). Going to
+`localhost:4321/keystatic` through a tunnel then reaches the production site,
+which has no Keystatic and answers 404.
+
+1. On the server: `cd ~/blog && npm run dev -- --host 127.0.0.1`. Note the port
+   it prints (e.g. `4322`). `--host 127.0.0.1` overrides `server.host: true` in
+   `astro.config.mjs`, which would otherwise listen on every interface.
+2. On your own computer, open a tunnel to that port:
+   ```sh
+   ssh -L 4322:localhost:4322 user@your-vps
+   ```
+3. Browse to <http://localhost:4322/keystatic> and create the post as above.
+4. When finished, stop the dev server (Ctrl+C), then deploy (below).
+
+Keystatic has no login. Never leave the dev server reachable from the internet:
+keep it on `127.0.0.1` and make sure the firewall does not allow its port.
+
 Or skip Keystatic and create the file by hand:
 
 ```md
@@ -463,6 +483,11 @@ git add -A && git commit -m "New post: my-post" && git push
 # then on the server:
 cd /home/zawaung/blog && git pull && scripts/deploy.sh
 ```
+
+If you wrote the post with Keystatic on the server itself, the file is already
+there, so skip the `git pull`: untick **Draft**, stop the dev server, run
+`scripts/deploy.sh`, then commit and push the new file so git has it. nginx
+needs no reload for a new post.
 
 **Embedding videos and other content (YouTube, CodePen, ...)**
 
@@ -693,6 +718,7 @@ cause is a missing quote or an unclosed `<p>` tag; undo with
 | `/admin/` or `/api/` gives 502 | Container is down. `docker compose ps`, `docker compose logs blog`, `docker compose up -d`. |
 | Whole site gives 404 or 403 | `dist/client` missing or unreadable → rerun `scripts/deploy.sh`; check the `www-data` ACL on the home directory. |
 | New post not showing | Not deployed (`scripts/deploy.sh`), `draft: true`, or `pubDate` in the front matter malformed (the build prints the error). |
+| `/keystatic` gives 404 | The port is serving the production container, which has no Keystatic. Run `ss -ltnp \| grep 432` to find the dev server's real port (usually 4322) and tunnel to that (7.1). |
 | Search finds nothing / "dev" note | Index only exists after `npm run build`; deploy again. |
 | Comment form says "Forbidden" | The `Origin` check failed: `SITE_ORIGIN` in `docker-compose.yml` must match exactly the address in the browser (`https://blog.zawaung.site`). |
 | Comment form says "Too many requests" | Rate limit hit (10 comments or 3 messages per hour per IP). Wait an hour, or run `docker compose exec blog node -e "new (require('better-sqlite3'))('/data/blog.db').prepare('delete from rate_limits').run()"`. |

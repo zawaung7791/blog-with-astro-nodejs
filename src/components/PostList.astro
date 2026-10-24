@@ -10,10 +10,10 @@ const hue = (t: string) => [...t].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 
 const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC' });
 ---
 <ul class="post-list">
-  {posts.map((post) => (
-    <li>
+  {posts.map((post, i) => (
+    <li style={`--i:${Math.min(i, 8)}`}>
       {post.data.tags[0] && <a class="label" style={`--h:${hue(post.data.tags[0])}`} href={`/tags/${post.data.tags[0]}/`}>{post.data.tags[0]}</a>}
-      <h2><a href={`/posts/${post.id}/`}><span>{post.data.title}</span></a></h2>
+      <h2 style={`view-transition-name:t-${post.id}`}><a href={`/posts/${post.id}/`}><span>{post.data.title}</span></a></h2>
       <div class="meta"><time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time></div>
     </li>
   ))}

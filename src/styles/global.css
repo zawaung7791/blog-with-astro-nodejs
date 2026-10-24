@@ -130,3 +130,20 @@ article iframe { max-width: 100%; border: 0; }
 article iframe[src*="youtube"], article iframe[src*="youtu.be"], article iframe[src*="vimeo"] {
   width: 100%; height: auto; aspect-ratio: 16 / 9;
 }
+
+/* Page transitions. Cross-document view transitions (Chrome, Edge, Safari 18.2+;
+   other browsers just navigate normally): the header stays put, the content
+   cross-fades, and a post title glides from its card to the post page. */
+@view-transition { navigation: auto; }
+header.site { view-transition-name: site-header; }
+::view-transition-old(root) { animation: fade-out .15s ease both; }
+::view-transition-new(root) { animation: fade-in .3s ease .05s both; }
+::view-transition-group(*) { animation-duration: .4s; animation-timing-function: cubic-bezier(.2, .7, .2, 1); }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes fade-out { to { opacity: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+main > article, .page-title, .form { animation: rise .5s cubic-bezier(.2, .7, .2, 1) both; }
+.post-list li { animation: rise .5s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 60ms); }
+@media (prefers-reduced-motion: reduce) {
+  *, ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; transition: none !important; }
+}

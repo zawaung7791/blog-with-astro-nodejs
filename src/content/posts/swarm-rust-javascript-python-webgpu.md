@@ -69,3 +69,7 @@ MB) from a CDN the first time and browsers cache it afterwards.
 - Results depend heavily on your machine, browser and whether WebGPU is
   available. The point is the comparison on one machine, not an absolute score.
 - Needs a recent browser: Chrome, Edge, Firefox, or Safari 16.4 or later.
+
+---
+
+*This web app was developed using [Claude Code](https://claude.com/claude-code).*

@@ -61,3 +61,7 @@ an arbitrary cap: 64-bit floating-point numbers run out of precision there, and
 adjacent pixels start mapping to the same number, so the image turns into
 blocks. Going deeper needs a different technique (arbitrary precision, or
 perturbation methods). I chose to stop at the limit of the simple approach.
+
+---
+
+*This web app was developed using [Claude Code](https://claude.com/claude-code).*

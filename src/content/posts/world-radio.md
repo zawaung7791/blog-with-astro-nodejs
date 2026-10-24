@@ -89,3 +89,7 @@ Only HTTPS, non-HLS streams are listed, because browsers block plain HTTP audio
 on an HTTPS page and HLS needs an extra player library. Titles appear only for
 stations that send them. And OpenStreetMap's public tile servers are meant for
 light use, so heavy traffic would call for a different tile provider.
+
+---
+
+*This web app was developed using [Claude Code](https://claude.com/claude-code).*

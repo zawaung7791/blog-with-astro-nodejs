@@ -81,3 +81,7 @@ Use the numbers for relative comparisons on one run, not as universal truths.
 The engines differ in more than language: Polars and pandas are libraries
 written mostly in compiled code, so "Python" being fast or slow here is partly
 a statement about its libraries, not just the interpreter.
+
+---
+
+*This web app was developed using [Claude Code](https://claude.com/claude-code).*

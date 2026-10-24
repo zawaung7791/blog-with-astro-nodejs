@@ -71,3 +71,7 @@ in a public repository.
   with `docker save | ssh … docker load`.
 - Audio stays silent until the first click or key press, because browsers block
   autoplaying sound.
+
+---
+
+*This web app was developed using [Claude Code](https://claude.com/claude-code).*

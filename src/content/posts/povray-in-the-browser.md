@@ -62,3 +62,7 @@ from them, which closes off path tricks like `../`.
 - Rendering is CPU-bound and slow for complicated scenes, which is the nature
   of ray tracing. Draft quality is the quick way to check a scene before
   committing to a Best render.
+
+---
+
+*This web app was developed using [Claude Code](https://claude.com/claude-code).*

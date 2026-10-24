@@ -84,3 +84,7 @@ phone. The container publishes its port on localhost only, and the number of
 simultaneous Stockfish processes is capped in the compose file so a busy moment
 cannot eat the whole machine. Think time, strength range and the process cap
 are all environment settings.
+
+---
+
+*This web app was developed using [Claude Code](https://claude.com/claude-code).*

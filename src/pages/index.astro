@@ -9,6 +9,5 @@ const posts = (await getCollection('posts', (p) => !p.data.draft)).sort(
 );
 ---
 <Base title={SITE_TITLE}>
-  <h1>Posts</h1>
   <PostList posts={posts} />
 </Base>

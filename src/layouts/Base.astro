@@ -25,12 +25,14 @@ const fullTitle = title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`;
   <body>
     <header class="site">
       <div class="wrap">
-        <a class="brand" href="/">{SITE_TITLE}</a>
-        <nav>
-          <a href="/">Posts</a>
-          <a href="/search/">Search</a>
+        <nav class="menu menu-left" aria-label="Main">
+          <a href="/">Home</a>
           <a href="/about/">About</a>
           <a href="/contact/">Contact</a>
+        </nav>
+        <a class="brand" href="/">{SITE_TITLE}</a>
+        <nav class="menu menu-right" aria-label="More">
+          <a href="/search/">Search</a>
           <a href="/rss.xml">RSS</a>
         </nav>
       </div>

@@ -10,9 +10,9 @@ const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC
 <ul class="post-list">
   {posts.map((post) => (
     <li>
-      <h2><a href={`/posts/${post.id}/`}>{post.data.title}</a></h2>
+      {post.data.tags[0] && <a class="label" href={`/tags/${post.data.tags[0]}/`}>{post.data.tags[0]}</a>}
+      <h2><a href={`/posts/${post.id}/`}><span>{post.data.title}</span></a></h2>
       <div class="meta"><time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time></div>
-      <p>{post.data.description}</p>
     </li>
   ))}
 </ul>

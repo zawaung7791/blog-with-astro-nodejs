@@ -1,16 +1,23 @@
 ---
 title: A chess opponent that plays like a person
-description: Chess against Stockfish or Maia with adjustable strength, move-by-move ratings and post-game analysis, running in Docker.
+description: >-
+  Chess against Stockfish or Maia with adjustable strength, move-by-move ratings
+  and post-game analysis, running in Docker.
 pubDate: 2026-10-24
-tags: [webapp, chess, python, docker]
+tags:
+  - webapp
+  - chess
+  - python
+  - docker
 draft: false
 ---
-
 [Chess vs Computer](https://chess.zawaung.site) is a chess site where you play
 against an engine that you can tune from beginner to very strong, and that
 tries not to feel like a machine. It is a Python (FastAPI) back end with
 [Stockfish](https://stockfishchess.org) behind it, in a Docker container behind
 the same nginx as everything else on this server.
+
+![Chess board](../../assets/posts/chess-board.png)
 
 ## Playing
 
@@ -19,6 +26,8 @@ positions each game), a strength from 400 Elo up to a configurable maximum, and
 whether the game is timed. When it finishes you can export the moves as PGN or
 save a screenshot of the board. On a phone the layout collapses to the board,
 the status line and a few buttons, with settings in a popup.
+
+![Game settings](../../assets/posts/chess-settings.png)
 
 ## Making the engine weaker, on purpose
 
@@ -54,10 +63,14 @@ mistake, blunder) by asking Stockfish about the position. A "miss" means failing
 to punish your opponent's mistake. Afterwards the analysis screen gives:
 
 - a short written summary built from those ratings
+
 - accuracy broken into opening, tactics, strategy and endgame
+
 - a rough "possible Elo" for each side, from the average centipawn loss mapped
   back through the same tables the engine plays by (only a ballpark figure, and
   it needs at least six moves per side)
+
+  ![Post-game analysis](../../assets/posts/chess-analysis.png)
 
 There is also a daily puzzle. The server fetches Lichess's free daily puzzle
 once a day and caches it, falling back to a small built-in set if Lichess is

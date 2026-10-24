@@ -21,7 +21,13 @@ export default config({
           itemLabel: (props) => props.value,
         }),
         draft: fields.checkbox({ label: 'Draft', defaultValue: false }),
-        content: fields.markdoc({ label: 'Content', extension: 'md' }),
+        content: fields.markdoc({
+          label: 'Content',
+          extension: 'md',
+          // Images go to src/assets/posts so Astro can resolve and optimise
+          // them; the path is written relative to the post file.
+          options: { image: { directory: 'src/assets/posts', publicPath: '../../assets/posts/' } },
+        }),
       },
     }),
   },

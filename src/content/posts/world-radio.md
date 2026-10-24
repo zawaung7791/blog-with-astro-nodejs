@@ -11,6 +11,9 @@ stations by name, country or genre, see them on a map, and play them. It also
 has a "Surprise me" button, favourites, shareable links, now-playing track
 titles, and it can be installed as an app.
 
+![World Radio with the station list beside a world map](../../assets/posts/world-radio-map.png)
+*Stations on the left, the same stations plotted on the map on the right.*
+
 ## Principles
 
 I kept it deliberately plain:

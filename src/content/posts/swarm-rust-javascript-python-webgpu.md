@@ -11,6 +11,9 @@ written several times over, and races the versions against each other live in
 your browser. The simulations are a spiral galaxy, fireworks, and a flock of
 birds.
 
+![Swarm running the spiral galaxy in Rust and JavaScript side by side](../../assets/posts/swarm-side-by-side.png)
+*The spiral galaxy in side-by-side mode, with live frame rates and timings for each lane.*
+
 ## What is being raced
 
 | Lane | How it runs |

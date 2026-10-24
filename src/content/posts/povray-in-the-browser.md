@@ -11,6 +11,9 @@ a scene or upload a `.pov` file, press Render, and watch a ray-traced image
 appear. It is about 350 lines in total: a FastAPI back end that runs the real
 `povray` program, and one static HTML page.
 
+![POV-Ray Online with the scene editor and a finished render](../../assets/posts/povray-render.png)
+*The sample scene after pressing Render: editor on the left, the image and POV-Ray's own log on the right.*
+
 ## The interesting problem
 
 A POV-Ray scene is not just data, it is a program. The scene language can read

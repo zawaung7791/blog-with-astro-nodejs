@@ -11,6 +11,9 @@ around the Mandelbrot set, Julia sets, the Burning Ship and the Tricorn the way
 you would use a web map. That is not a coincidence: it is built on the same
 idea as a map.
 
+![The Mandelbrot set in Fractal Explorer with its settings panel](../../assets/posts/fractal-explorer.png)
+*The opening view: the Mandelbrot set, with the controls panel on the left.*
+
 ## Fractals as map tiles
 
 A web map never loads one huge picture. It loads small square tiles for the

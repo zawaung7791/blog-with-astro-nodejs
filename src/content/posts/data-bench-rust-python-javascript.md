@@ -10,6 +10,9 @@ draft: false
 for a typical data-analytics job. It runs the same workload in six different
 engines and shows the timings side by side.
 
+![Data bench after a 100k-row run, with bars comparing the six engines](../../assets/posts/bench-results.png)
+*Data bench after a 100,000-row run: the bars show each engine's total time against the fastest.*
+
 ## The six engines
 
 | Engine | How it's built |

@@ -1,22 +1,30 @@
 /* Look modelled on the Astro "Microblog" theme (Lexington Themes): neutral
    greys, narrow centred column, small type, uppercase brand, entry grid. */
 :root {
-  --bg: #ffffff;
+  --bg: #f6f7fb;
+  --surface: #ffffff;
   --fg: #1c1c1f;
-  --muted: #737373;
-  --accent: #3b82f6;
-  --border: #f0f0f0;
-  --code-bg: #f5f5f5;
+  --muted: #6b6f7d;
+  --accent: #4f6bed;
+  --border: #e6e8f0;
+  --code-bg: #eef0f7;
+  --glow: rgba(99, 102, 241, .10);
+  --shadow: 0 1px 2px rgba(30, 41, 90, .05), 0 6px 18px -8px rgba(30, 41, 90, .12);
+  --pill-l: 38%;
   --measure: 76rem;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0a0a0a;
-    --fg: #ececef;
-    --muted: #a3a3a3;
-    --accent: #7aa2ff;
-    --border: #262626;
-    --code-bg: #1c1c1c;
+    --bg: #0e1016;
+    --surface: #151821;
+    --fg: #ececf1;
+    --muted: #9a9fb0;
+    --accent: #8ea2ff;
+    --border: #252a38;
+    --code-bg: #1b1f2b;
+    --glow: rgba(99, 102, 241, .16);
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 22px -10px rgba(0, 0, 0, .5);
+    --pill-l: 74%;
   }
 }
 * { box-sizing: border-box; }
@@ -25,7 +33,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
+  background: radial-gradient(60rem 22rem at 50% -6rem, var(--glow), transparent 70%) no-repeat, var(--bg);
   color: var(--fg);
   font: 1rem/1.7 Inter, InterVariable, system-ui, -apple-system, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -33,6 +41,7 @@ body {
 main { flex: 1 0 auto; }
 a { color: inherit; text-underline-offset: 3px; }
 a:hover { color: var(--accent); }
+article a { color: var(--accent); }
 .wrap { max-width: var(--measure); margin: 0 auto; padding: 0 1.25rem; width: 100%; }
 header.site { padding: 1.25rem 0 .5rem; }
 header.site .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .25rem 0; }
@@ -50,7 +59,7 @@ header.site .brand { padding: 0 1.5rem; }
   header.site .brand { margin-bottom: .25rem; }
 }
 main { padding: 2rem 0 3rem; }
-footer.site { margin-top: 2.5rem; border-top: 1px solid var(--border); padding: 2rem 0; color: var(--muted); font-size: .875rem; text-align: center; }
+footer.site { margin-top: 2.5rem; border-top: 1px solid var(--border); background: color-mix(in srgb, var(--surface) 60%, transparent); padding: 2rem 0; color: var(--muted); font-size: .875rem; text-align: center; }
 footer.site a { text-decoration: underline; }
 h1, h2, h3 { line-height: 1.3; font-weight: 600; letter-spacing: -.02em; }
 h1 { font-size: 2.25rem; margin: 0 0 1rem; text-wrap: balance; }
@@ -62,12 +71,13 @@ h3 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
 .tags a { font-size: .8125rem; font-weight: 500; color: var(--muted); text-decoration: none; }
 .tags a:hover { color: var(--accent); }
 .post-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 2.5rem; }
-.post-list li { grid-column: span 2; margin: 0; }
+.post-list li { grid-column: span 2; margin: 0; padding: 1.25rem 1.4rem; background: var(--surface); border: 1px solid var(--border); border-radius: 1rem; box-shadow: var(--shadow); transition: transform .2s, border-color .2s; }
+.post-list li:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); }
 .post-list li:nth-child(-n+2) { grid-column: span 3; }
 .post-list li:nth-child(-n+2) h2 { font-size: 1.5rem; }
 @media (max-width: 60rem) { .post-list li { grid-column: span 3; } }
 @media (max-width: 40rem) { .post-list { gap: 2rem; } .post-list li, .post-list li:nth-child(-n+2) { grid-column: 1 / -1; } }
-.post-list .label { display: inline-block; font-size: .6875rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; padding: .15rem .6rem; border-radius: 999px; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+.post-list .label { display: inline-block; font-size: .6875rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; padding: .15rem .6rem; border-radius: 999px; background: hsl(var(--h, 230) 80% 55% / .13); color: hsl(var(--h, 230) 55% var(--pill-l)); }
 .post-list h2 { margin: .6rem 0 .5rem; font-size: 1.125rem; font-weight: 600; letter-spacing: -.01em; text-wrap: balance; }
 .post-list h2 a { text-decoration: none; }
 .post-list h2 a:hover { color: inherit; }

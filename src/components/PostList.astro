@@ -5,12 +5,14 @@ interface Props {
   posts: CollectionEntry<'posts'>[];
 }
 const { posts } = Astro.props;
+// A stable hue per tag, so each tag keeps its own colour.
+const hue = (t: string) => [...t].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
 const fmt = new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeZone: 'UTC' });
 ---
 <ul class="post-list">
   {posts.map((post) => (
     <li>
-      {post.data.tags[0] && <a class="label" href={`/tags/${post.data.tags[0]}/`}>{post.data.tags[0]}</a>}
+      {post.data.tags[0] && <a class="label" style={`--h:${hue(post.data.tags[0])}`} href={`/tags/${post.data.tags[0]}/`}>{post.data.tags[0]}</a>}
       <h2><a href={`/posts/${post.id}/`}><span>{post.data.title}</span></a></h2>
       <div class="meta"><time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time></div>
     </li>
